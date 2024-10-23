@@ -1,3 +1,10 @@
+import {getBanglaDays, getBanglaMonths, getBanglaSeasons} from './calendar.js'
 import {getBanglaDigit, isBanglaDigit} from './digit.js'
 
-export {getBanglaDigit, isBanglaDigit}
+export {
+  getBanglaDays,
+  getBanglaDigit,
+  getBanglaMonths,
+  getBanglaSeasons,
+  isBanglaDigit,
+}
