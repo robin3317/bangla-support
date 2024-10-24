@@ -82,7 +82,7 @@ function getBanglaMonth(
   const day = inputDate.getUTCDate()
   const month = inputDate.getMonth()
   const year = inputDate.getFullYear()
-  const {format, calculationMethod} = options
+  const {format = 'MMMM', calculationMethod = 'BD'} = options
   const banglaMonth =
     calculationMethod === 'BD'
       ? getMonthBD(day, month)

@@ -5,6 +5,7 @@ export {
   getBanglaDays,
   getBanglaMonth,
   getBanglaMonths,
+  getBanglaSeason,
   getBanglaSeasons,
   getBanglaYear,
 } from './calendar/index.js'
