@@ -1,6 +1,6 @@
 # bangla-support
 
-A collection of utility functions to provide bangla digit, text translate into bangla and verify bangla digit e.t.c.
+A collection of utility functions to provide bangla date, bangla digit, text translate into bangla and verify bangla digit e.t.c.
 
 ## Installation and Usage
 
@@ -51,7 +51,7 @@ getBanglaMonths() // Output: ['বৈশাখ', 'জ্যৈষ্ঠ', 'আ�
 ```javascript
 import {getBanglaDays} from 'bangla-support'
 
-getBanglaDays() // Output: ['রবিবার', 'সোমবার', 'মঙ্গলবার', 'বুধবার', 'বৃহস্পতিবার', 'শুক্রবার', 'শনিবার']
+getBanglaDays() // Output: ['রবি', 'সোম', 'মঙ্গল', 'বুধ', 'বৃহস্পতি', 'শুক্র', 'শনি']
 ```
 
 - **getBanglaSeasons**: Return bangla seasons in an array.
@@ -59,5 +59,5 @@ getBanglaDays() // Output: ['রবিবার', 'সোমবার', 'মঙ�
 ```javascript
 import {getBanglaSeasons} from 'bangla-support'
 
-getBanglaSeasons() // Output: ['গ্রীষ্ম', 'বর্ষা', 'শরৎ', 'হেমন্ত', 'শীত']
+getBanglaSeasons() // Output: ['গ্রীষ্ম', 'বর্ষা', 'শরৎ', 'হেমন্ত', 'শীত', 'বসন্ত']
 ```

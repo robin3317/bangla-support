@@ -1,7 +1,7 @@
 {
   "name": "bangla-support",
-  "version": "1.0.2",
-  "description": "A collection of utility functions to provide bangla digit, text translate into bangla and verify bangla digit e.t.c.",
+  "version": "2.0.0",
+  "description": "A collection of utility functions to provide bangla digit, bangla date, text translate into bangla and verify bangla digit e.t.c.",
   "main": "index.js",
   "type": "module",
   "scripts": {

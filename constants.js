@@ -16,13 +16,13 @@ export const banglaMonths = [
 ]
 
 export const banglaDays = [
-  'রবিবার',
-  'সোমবার',
-  'মঙ্গলবার',
-  'বুধবার',
-  'বৃহস্পতিবার',
-  'শুক্রবার',
-  'শনিবার',
+  'রবি',
+  'সোম',
+  'মঙ্গল',
+  'বুধ',
+  'বৃহস্পতি',
+  'শুক্র',
+  'শনি',
 ]
 
 export const banglaSeasons = [
@@ -32,8 +32,4 @@ export const banglaSeasons = [
   'হেমন্ত',
   'শীত',
   'বসন্ত',
-]
-
-export const totalDaysInBanglaMonth = [
-  31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 30,
 ]
