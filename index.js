@@ -1,4 +1,4 @@
-export {
+import {
   getBanglaDate,
   getBanglaDay,
   getBanglaDayName,
@@ -9,4 +9,18 @@ export {
   getBanglaSeasons,
   getBanglaYear,
 } from './calendar/index.js'
-export {getBanglaDigit, isBanglaDigit} from './digit.js'
+import {getBanglaDigit, isBanglaDigit} from './digit.js'
+
+export {
+  getBanglaDate,
+  getBanglaDay,
+  getBanglaDayName,
+  getBanglaDays,
+  getBanglaDigit,
+  getBanglaMonth,
+  getBanglaMonths,
+  getBanglaSeason,
+  getBanglaSeasons,
+  getBanglaYear,
+  isBanglaDigit,
+}

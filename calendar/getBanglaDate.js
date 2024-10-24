@@ -1,7 +1,7 @@
-import {getDay} from './getBanglaDay.js'
-import {getWeekDay} from './getBanglaDayName.js'
-import {getMonth} from './getBanglaMonth.js'
-import {getYear} from './getBanglaYear.js'
+import {getBanglaDay} from './getBanglaDay.js'
+import {getBanglaDayName} from './getBanglaDayName.js'
+import {getBanglaMonth} from './getBanglaMonth.js'
+import {getBanglaYear} from './getBanglaYear.js'
 import {errorMessage, isValidDate} from './utils.js'
 
 const defaultOptions = {
@@ -22,55 +22,57 @@ function getBanglaDate(date = new Date(), options = defaultOptions) {
   let formattedDate = format.replace(/eeee|eee/gi, function (fmt) {
     switch (fmt) {
       case 'eee':
-        return getWeekDay(inputDate, {
+        return getBanglaDayName(inputDate, {
           format: 'eee',
           calculationMethod: calculationMethod,
         })
       default:
-        return getWeekDay(inputDate, {calculationMethod: calculationMethod})
+        return getBanglaDayName(inputDate, {
+          calculationMethod: calculationMethod,
+        })
     }
   })
   formattedDate = formattedDate.replace(/DD|D/gi, function (fmt) {
     switch (fmt) {
       case 'DD':
-        return getDay(inputDate, {
+        return getBanglaDay(inputDate, {
           format: 'DD',
           calculationMethod: calculationMethod,
         })
       default:
-        return getDay(inputDate, {calculationMethod: calculationMethod})
+        return getBanglaDay(inputDate, {calculationMethod: calculationMethod})
     }
   })
   formattedDate = formattedDate.replace(/MMMM|MM|M/gi, function (fmt) {
     switch (fmt) {
       case 'M':
-        return getMonth(inputDate, {
+        return getBanglaMonth(inputDate, {
           format: 'M',
           calculationMethod: calculationMethod,
         })
       case 'MM':
-        return getMonth(inputDate, {
+        return getBanglaMonth(inputDate, {
           format: 'MM',
           calculationMethod: calculationMethod,
         })
       default:
-        return getMonth(inputDate, {calculationMethod: calculationMethod})
+        return getBanglaMonth(inputDate, {calculationMethod: calculationMethod})
     }
   })
   formattedDate = formattedDate.replace(/YYYYb|YYYY|YY/gi, function (fmt) {
     switch (fmt) {
       case 'YY':
-        return getYear(inputDate, {
+        return getBanglaYear(inputDate, {
           format: 'YY',
           calculationMethod: calculationMethod,
         })
       case 'YYYYb':
-        return getYear(inputDate, {
+        return getBanglaYear(inputDate, {
           format: 'YYYYb',
           calculationMethod: calculationMethod,
         })
       default:
-        return getYear(inputDate, {calculationMethod: calculationMethod})
+        return getBanglaYear(inputDate, {calculationMethod: calculationMethod})
     }
   })
   return formattedDate
