@@ -67,11 +67,11 @@ getBanglaDate() // Output: 'শুক্রবার, ৯ কার্তিক,
 const date = new Date('October 25 2024 18:32:03')
 
 getBanglaDate(date) // Output: 'শুক্রবার, ৯ কার্তিক, ১৪৩১'
-getBanglaDate(date, {format: 'DD/MM/YY', calculationMethod: 'BD'}) // Output: '০৯/০৭/৩১'
-getBanglaDate(date, {format: 'DD/MM/YYYY', calculationMethod: 'BD'}) // Output: '০৯/০৭/১৪৩১'
-getBanglaDate(date, {format: 'DD/MM/YYYYb', calculationMethod: 'BD'}) // Output: ০৯/০৭/১৪৩১ (বঙ্গাব্দ)
-getBanglaDate(date, {format: 'D MMMM, YYYY', calculationMethod: 'BD'}) // Output: '৯ কার্তিক, ১৪৩১'
-getBanglaDate(date, {format: 'D MMMM, YYYYb', calculationMethod: 'BD'}) // Output: ৯ কার্তিক, ১৪৩১ (বঙ্গাব্দ)
+getBanglaDate(date, {format: 'DD/MM/YY', country: 'BD'}) // Output: '০৯/০৭/৩১'
+getBanglaDate(date, {format: 'DD/MM/YYYY', country: 'BD'}) // Output: '০৯/০৭/১৪৩১'
+getBanglaDate(date, {format: 'DD/MM/YYYYb', country: 'BD'}) // Output: ০৯/০৭/১৪৩১ (বঙ্গাব্দ)
+getBanglaDate(date, {format: 'D MMMM, YYYY', country: 'BD'}) // Output: '৯ কার্তিক, ১৪৩১'
+getBanglaDate(date, {format: 'D MMMM, YYYYb', country: 'BD'}) // Output: ৯ কার্তিক, ১৪৩১ (বঙ্গাব্দ)
 ```
 
 ### getBanglaDay

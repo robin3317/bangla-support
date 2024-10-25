@@ -76,7 +76,7 @@ function getDayIN(day, month, year) {
   return banglaDay
 }
 
-const defaultOptions = {format: 'D', calculationMethod: 'BD'}
+const defaultOptions = {format: 'D', country: 'BD'}
 
 /**
  * Get bangla day
@@ -95,14 +95,10 @@ function getBanglaDay(date = new Date(), options = defaultOptions) {
   const day = inputDate.getUTCDate()
   const month = inputDate.getMonth()
   const year = inputDate.getFullYear()
-  const {
-    format = defaultOptions.format,
-    calculationMethod = defaultOptions.calculationMethod,
-  } = options
+  const {format = defaultOptions.format, country = defaultOptions.country} =
+    options
   const banglaDay =
-    calculationMethod === 'BD'
-      ? getDayBD(day, month, year)
-      : getDayIN(day, month, year)
+    country === 'BD' ? getDayBD(day, month, year) : getDayIN(day, month, year)
   return formatDay(banglaDay, format)
 }
 

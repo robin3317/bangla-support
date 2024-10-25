@@ -73,7 +73,7 @@ function getMonthBD(day, month) {
 
 function getBanglaMonth(
   date = new Date(),
-  options = {format: 'MMMM', calculationMethod: 'BD'}
+  options = {format: 'MMMM', country: 'BD'}
 ) {
   if (!isValidDate(date)) {
     throw new Error(errorMessage)
@@ -82,11 +82,9 @@ function getBanglaMonth(
   const day = inputDate.getUTCDate()
   const month = inputDate.getMonth()
   const year = inputDate.getFullYear()
-  const {format = 'MMMM', calculationMethod = 'BD'} = options
+  const {format = 'MMMM', country = 'BD'} = options
   const banglaMonth =
-    calculationMethod === 'BD'
-      ? getMonthBD(day, month)
-      : getMonthIN(year, month, day)
+    country === 'BD' ? getMonthBD(day, month) : getMonthIN(year, month, day)
   return formatMonth(banglaMonth, format)
 }
 

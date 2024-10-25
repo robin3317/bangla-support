@@ -17,7 +17,7 @@ function getYearIN(year, month, day) {
 
 function getBanglaYear(
   date = new Date(),
-  options = {format: 'YYYY', calculationMethod: 'BD'}
+  options = {format: 'YYYY', country: 'BD'}
 ) {
   if (!isValidDate(date)) {
     throw new Error(errorMessage)
@@ -26,8 +26,8 @@ function getBanglaYear(
   const day = inputDate.getUTCDate()
   const month = inputDate.getMonth()
   const year = inputDate.getFullYear()
-  const {format, calculationMethod} = options
-  if (calculationMethod === 'IN') {
+  const {format, country} = options
+  if (country === 'IN') {
     return formatYear(getYearIN(year, month, day), format)
   }
   let banglaYear = year - 593
