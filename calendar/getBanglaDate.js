@@ -9,6 +9,12 @@ const defaultOptions = {
   calculationMethod: 'BD',
 }
 
+/**
+ * Get bangla date
+ * @param {Date} date - The date to format.
+ * @param {Object} options - The options to format the date.
+ * @returns {String} The formatted date.
+ */
 function getBanglaDate(date = new Date(), options = defaultOptions) {
   if (!isValidDate(date)) {
     throw new Error(errorMessage)
@@ -17,7 +23,10 @@ function getBanglaDate(date = new Date(), options = defaultOptions) {
   inputDate.setTime(
     inputDate.getTime() + (inputDate.getTimezoneOffset() + 360) * 60 * 1000
   )
-  const {format, calculationMethod} = options
+  const {
+    format = defaultOptions.format,
+    calculationMethod = defaultOptions.calculationMethod,
+  } = options
 
   let formattedDate = format.replace(/eeee|eee/gi, function (fmt) {
     switch (fmt) {

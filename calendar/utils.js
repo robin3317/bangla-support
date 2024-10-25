@@ -48,7 +48,7 @@ function isValidDate(date) {
 }
 
 function formatDay(day = 1, format = 'D') {
-  const d = day.toString()
+  let d = day.toString()
   switch (format) {
     case 'DD':
       d = d.length === 1 ? '0'.concat(d) : d
@@ -68,7 +68,7 @@ function formatDayName(day = 0, format = 'eeee') {
 }
 
 function formatMonth(month = 0, format = 'MMMM') {
-  const m = (month + 1).toString()
+  let m = (month + 1).toString()
   switch (format) {
     case 'M':
       return convertNumbers(m)
