@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [20, 22]
+        # The library's core promise is timezone-independent output.
+        # UTC and America/New_York catch the westward date-flip class;
+        # Asia/Dhaka is the library's home zone (offset math cancels out
+        # there, so bugs hide — it must still pass); Pacific/Kiritimati
+        # (UTC+14) catches eastward month-boundary drift.
+        tz: [UTC, America/New_York, Asia/Dhaka, Pacific/Kiritimati]
+    env:
+      TZ: ${{ matrix.tz }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npm run types
+
+  package-health:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run types
+      - run: npx publint
+      - run: npx --yes @arethetypeswrong/cli --pack . --ignore-rules cjs-resolves-to-esm
