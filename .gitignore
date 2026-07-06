@@ -1,0 +1,15 @@
+# Dependencies
+node_modules/
+
+# Generated type declarations (built by `npm run types` at publish time)
+types/
+
+# Test artifacts
+coverage/
+
+# Local working notes (not part of the published project)
+TODOS.md
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
