@@ -17,7 +17,8 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          registry-url: https://registry.npmjs.org
+      # Trusted publishing (OIDC) needs npm >= 11.5.1; node 22 bundles npm 10.
+      - run: npm install -g npm@latest
       - run: npm ci
 
       # Guard: the tag must match package.json — a mistagged commit
@@ -36,6 +37,7 @@ jobs:
       - run: npm test
       - run: npm run types
 
+      # Auth via npm Trusted Publishing (GitHub OIDC) — no token, no OTP.
+      # Configured on npmjs.com: package Settings → Trusted Publisher →
+      # robin3317/bangla-support, workflow publish.yml.
       - run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
