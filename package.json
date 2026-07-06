@@ -1,26 +1,61 @@
 {
   "name": "bangla-support",
-  "version": "2.0.0",
-  "description": "A collection of utility functions to provide bangla digit, bangla date, text translate into bangla and verify bangla digit e.t.c.",
+  "version": "3.0.0",
+  "description": "Utility functions for Bangla (Bengali) digits and the Bangla calendar — dates, months, seasons and weekdays for Bangladesh (BD) and India (IN).",
   "main": "index.js",
   "type": "module",
+  "types": "./types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "digit.js",
+    "constants.js",
+    "calendar/",
+    "types/"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=20.17.0"
+  },
   "scripts": {
-    "test": "vitest run"
+    "test": "vitest run",
+    "types": "tsc -p tsconfig.json",
+    "prepublishOnly": "npm test && npm run types"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/robin3317/bangla-support.git"
   },
   "keywords": [
-    "bangla-support"
+    "bangla",
+    "bengali",
+    "bangla-date",
+    "bengali-date",
+    "bangla-calendar",
+    "bengali-calendar",
+    "bangla-digit",
+    "bengali-numerals",
+    "bongabdo",
+    "date",
+    "calendar",
+    "i18n",
+    "bangladesh",
+    "west-bengal"
   ],
   "author": "Abdur Rahman Robin",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/robin3317/bangla-support/issues"
   },
   "homepage": "https://github.com/robin3317/bangla-support#readme",
   "devDependencies": {
+    "typescript": "^5.9.3",
     "vitest": "^4.1.9"
   }
 }
