@@ -1,20 +1,19 @@
-import {banglaMonths, banglaSeasons} from '../constants.js'
-import {getBanglaMonth} from './getBanglaMonth.js'
-import {errorMessage, isValidDate} from './utils.js'
+import {banglaSeasons} from '../constants.js'
+import {banglaMonthIndexFromParts} from './getBanglaMonth.js'
+import {toCalendarParts} from './utils.js'
 
-function getBanglaSeason(
-  date = new Date(),
-  options = {format: 'MMMM', country: 'BD'}
-) {
-  if (!isValidDate(date)) {
-    throw new Error(errorMessage)
-  }
-  const {format = 'MMMM', country = 'BD'} = options
-  const inputDate = new Date(date)
-  const banglaMonth = getBanglaMonth(inputDate, {format, country})
-  const monthIndex = banglaMonths.indexOf(banglaMonth)
-  const seasonIndex = Math.ceil((monthIndex + 1) / 2)
-  return banglaSeasons[seasonIndex - 1]
+/**
+ * Get bangla season
+ * @param {Date} date - The date to find the season for.
+ * @param {Object} options - Options ({country}). A format option, if
+ *   passed, is ignored — a season has no numeric form.
+ * @returns {String} The season name.
+ */
+function getBanglaSeason(date = new Date(), options = {}) {
+  const {country = 'BD'} = options
+  const monthIndex = banglaMonthIndexFromParts(toCalendarParts(date, country), country)
+  // Two Bangla months per season: বৈশাখ+জ্যৈষ্ঠ=গ্রীষ্ম … ফাল্গুন+চৈত্র=বসন্ত
+  return banglaSeasons[Math.floor(monthIndex / 2)]
 }
 
 export {getBanglaSeason}

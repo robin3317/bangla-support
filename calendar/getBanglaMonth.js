@@ -2,9 +2,9 @@ import {
   errorMessage,
   formatMonth,
   getJulianDate,
-  isValidDate,
   monthLengthIN,
   startJulianDate,
+  toCalendarParts,
   yearLength,
 } from './utils.js'
 
@@ -25,9 +25,15 @@ function getMonthIN(year, month, day) {
       banglaMonth = i + 1
     }
   }
+  if (banglaMonth === undefined) {
+    // No month window matched — never return silent NaN output.
+    throw new Error(errorMessage)
+  }
   return banglaMonth - 1
 }
 
+// Revised Bangladesh calendar month windows (0 = বৈশাখ … 11 = চৈত্র),
+// keyed by Gregorian (month, day). Pinned by test/calendar-bd.test.js.
 function getMonthBD(day, month) {
   let result
   switch (true) {
@@ -71,21 +77,38 @@ function getMonthBD(day, month) {
   return result
 }
 
-function getBanglaMonth(
-  date = new Date(),
-  options = {format: 'MMMM', country: 'BD'}
-) {
-  if (!isValidDate(date)) {
-    throw new Error(errorMessage)
-  }
-  const inputDate = new Date(date)
-  const day = inputDate.getUTCDate()
-  const month = inputDate.getMonth()
-  const year = inputDate.getFullYear()
-  const {format = 'MMMM', country = 'BD'} = options
-  const banglaMonth =
-    country === 'BD' ? getMonthBD(day, month) : getMonthIN(year, month, day)
-  return formatMonth(banglaMonth, format)
+/**
+ * Bangla month index (0 = বৈশাখ … 11 = চৈত্র) from normalized parts.
+ * @param {{day: number, month: number, year: number}} parts
+ * @param {string} [country]
+ * @returns {number}
+ */
+function banglaMonthIndexFromParts(parts, country = 'BD') {
+  return country === 'BD'
+    ? getMonthBD(parts.day, parts.month)
+    : getMonthIN(parts.year, parts.month, parts.day)
 }
 
-export {getBanglaMonth}
+/**
+ * Format the Bangla month from already-normalized calendar parts.
+ * @param {{day: number, month: number, year: number}} parts
+ * @param {string} [format]
+ * @param {string} [country]
+ * @returns {string}
+ */
+function banglaMonthFromParts(parts, format = 'MMMM', country = 'BD') {
+  return formatMonth(banglaMonthIndexFromParts(parts, country), format)
+}
+
+/**
+ * Get bangla month
+ * @param {Date} date - The date to format.
+ * @param {Object} options - The options to format the date.
+ * @returns {String} The formatted month.
+ */
+function getBanglaMonth(date = new Date(), options = {}) {
+  const {format = 'MMMM', country = 'BD'} = options
+  return banglaMonthFromParts(toCalendarParts(date, country), format, country)
+}
+
+export {banglaMonthFromParts, banglaMonthIndexFromParts, getBanglaMonth}

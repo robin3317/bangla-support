@@ -3,12 +3,16 @@ import {
   formatDay,
   getJulianDate,
   isLeapYear,
-  isValidDate,
   monthLengthIN,
   startJulianDate,
+  toCalendarParts,
   yearLength,
 } from './utils.js'
 
+// Gregorian → Bangla day-of-month for the revised Bangladesh calendar
+// (Bangla Academy, 2019). Each Gregorian month spans a Bangla month
+// boundary; the pivot day decides which side we are on. The boundary
+// table is pinned by test/calendar-bd.test.js against published dates.
 function getDayBD(day, month, year) {
   let banglaDay
   switch (month) {
@@ -61,7 +65,7 @@ function getDayIN(day, month, year) {
   if (julianDate < startJulianDate) {
     throw new Error(errorMessage)
   }
-  var banglaYear = Math.floor((julianDate - startJulianDate) / yearLength)
+  const banglaYear = Math.floor((julianDate - startJulianDate) / yearLength)
   const calculatedJulianDate = startJulianDate + banglaYear * yearLength
   let ps
   let ns
@@ -73,10 +77,27 @@ function getDayIN(day, month, year) {
       banglaDay = Math.floor(julianDate - ps) + 1
     }
   }
+  if (banglaDay === undefined) {
+    // No month window matched — never return silent empty output.
+    throw new Error(errorMessage)
+  }
   return banglaDay
 }
 
-const defaultOptions = {format: 'D', country: 'BD'}
+/**
+ * Format the Bangla day-of-month from already-normalized calendar parts.
+ * @param {{day: number, month: number, year: number}} parts
+ * @param {string} [format]
+ * @param {string} [country]
+ * @returns {string}
+ */
+function banglaDayFromParts(parts, format = 'D', country = 'BD') {
+  const banglaDay =
+    country === 'BD'
+      ? getDayBD(parts.day, parts.month, parts.year)
+      : getDayIN(parts.day, parts.month, parts.year)
+  return formatDay(banglaDay, format)
+}
 
 /**
  * Get bangla day
@@ -84,22 +105,9 @@ const defaultOptions = {format: 'D', country: 'BD'}
  * @param {Object} options - The options to format the date.
  * @returns {String} The formatted date(day number).
  */
-function getBanglaDay(date = new Date(), options = defaultOptions) {
-  if (!isValidDate(date)) {
-    throw new Error(errorMessage)
-  }
-  const inputDate = new Date(date)
-  inputDate.setTime(
-    inputDate.getTime() + (inputDate.getTimezoneOffset() + 360) * 60 * 1000
-  )
-  const day = inputDate.getUTCDate()
-  const month = inputDate.getMonth()
-  const year = inputDate.getFullYear()
-  const {format = defaultOptions.format, country = defaultOptions.country} =
-    options
-  const banglaDay =
-    country === 'BD' ? getDayBD(day, month, year) : getDayIN(day, month, year)
-  return formatDay(banglaDay, format)
+function getBanglaDay(date = new Date(), options = {}) {
+  const {format = 'D', country = 'BD'} = options
+  return banglaDayFromParts(toCalendarParts(date, country), format, country)
 }
 
-export {getBanglaDay}
+export {banglaDayFromParts, getBanglaDay}

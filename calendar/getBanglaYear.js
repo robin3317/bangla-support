@@ -2,8 +2,8 @@ import {
   errorMessage,
   formatYear,
   getJulianDate,
-  isValidDate,
   startJulianDate,
+  toCalendarParts,
   yearLength,
 } from './utils.js'
 
@@ -15,21 +15,19 @@ function getYearIN(year, month, day) {
   return Math.floor((julianDate - startJulianDate) / yearLength) + 1
 }
 
-function getBanglaYear(
-  date = new Date(),
-  options = {format: 'YYYY', country: 'BD'}
-) {
-  if (!isValidDate(date)) {
-    throw new Error(errorMessage)
-  }
-  const inputDate = new Date(date)
-  const day = inputDate.getUTCDate()
-  const month = inputDate.getMonth()
-  const year = inputDate.getFullYear()
-  const {format, country} = options
+/**
+ * Format the Bangla year from already-normalized calendar parts.
+ * @param {{day: number, month: number, year: number}} parts
+ * @param {string} [format]
+ * @param {string} [country]
+ * @returns {string}
+ */
+function banglaYearFromParts(parts, format = 'YYYY', country = 'BD') {
+  const {day, month, year} = parts
   if (country === 'IN') {
     return formatYear(getYearIN(year, month, day), format)
   }
+  // BD: the year increments on Pohela Boishakh (Apr 14).
   let banglaYear = year - 593
   if (month < 3 || (month === 3 && day < 14)) {
     banglaYear = year - 594
@@ -40,4 +38,15 @@ function getBanglaYear(
   return formatYear(banglaYear, format)
 }
 
-export {getBanglaYear}
+/**
+ * Get bangla year
+ * @param {Date} date - The date to format.
+ * @param {Object} options - The options to format the date.
+ * @returns {String} The formatted year.
+ */
+function getBanglaYear(date = new Date(), options = {}) {
+  const {format = 'YYYY', country = 'BD'} = options
+  return banglaYearFromParts(toCalendarParts(date, country), format, country)
+}
+
+export {banglaYearFromParts, getBanglaYear}

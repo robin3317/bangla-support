@@ -1,6 +1,19 @@
-export const banglaDigit = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯']
+// Frozen so callers who receive these arrays (getBanglaDigit(), getBanglaMonths(),
+// ...) cannot mutate shared library state.
+export const banglaDigit = Object.freeze([
+  '০',
+  '১',
+  '২',
+  '৩',
+  '৪',
+  '৫',
+  '৬',
+  '৭',
+  '৮',
+  '৯',
+])
 
-export const banglaMonths = [
+export const banglaMonths = Object.freeze([
   'বৈশাখ',
   'জ্যৈষ্ঠ',
   'আষাঢ়',
@@ -13,9 +26,9 @@ export const banglaMonths = [
   'মাঘ',
   'ফাল্গুন',
   'চৈত্র',
-]
+])
 
-export const banglaDays = [
+export const banglaDays = Object.freeze([
   'রবি',
   'সোম',
   'মঙ্গল',
@@ -23,13 +36,13 @@ export const banglaDays = [
   'বৃহস্পতি',
   'শুক্র',
   'শনি',
-]
+])
 
-export const banglaSeasons = [
+export const banglaSeasons = Object.freeze([
   'গ্রীষ্ম',
   'বর্ষা',
   'শরৎ',
   'হেমন্ত',
   'শীত',
   'বসন্ত',
-]
+])
